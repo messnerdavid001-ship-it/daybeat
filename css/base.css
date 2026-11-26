@@ -1,0 +1,118 @@
+/* =====================================================================
+   Base: reset, typography, focus, accessibility helpers, motion preferences.
+   ===================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-padding-top: calc(var(--topbar-h) + var(--sat) + 8px);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* no background here on purpose: html paints --bg, and the ambient glow (layout.css) sits between */
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-0);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;           /* no rubber-band / pull-to-refresh glitch in the installed app */
+}
+
+h1, h2, h3, h4, p, ul, ol, figure, dl, dd { margin: 0; }
+ul[role="list"], ol[role="list"], .plain { list-style: none; padding: 0; margin: 0; }
+
+h1, h2, h3, h4 { line-height: var(--lh-tight); letter-spacing: -0.015em; font-weight: 750; text-wrap: balance; }
+h1 { font-size: var(--fs-4); letter-spacing: -0.03em; font-weight: 800; }
+h2 { font-size: var(--fs-2); }
+h3 { font-size: var(--fs-1); }
+p  { text-wrap: pretty; }
+
+img, svg, canvas { display: block; max-width: 100%; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: var(--accent-text); text-underline-offset: 3px; }
+
+/* Interactive elements: no double-tap zoom delay, no accidental text selection on chrome */
+a, button, summary, [role="button"], input, select, textarea, label { touch-action: manipulation; }
+button, [role="button"], .tab, .nav-link { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+/* Inputs are >= 16px so iOS Safari never auto-zooms on focus */
+input, select, textarea { font-size: max(16px, 1rem); }
+
+/* User-supplied text must never blow the layout out (QA: 500-char titles without spaces) */
+.user-text { overflow-wrap: anywhere; word-break: break-word; min-width: 0; }
+.clamp-1, .clamp-2, .clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.clamp-1 { -webkit-line-clamp: 1; line-clamp: 1; }
+.clamp-2 { -webkit-line-clamp: 2; line-clamp: 2; }
+.clamp-3 { -webkit-line-clamp: 3; line-clamp: 3; }
+
+::selection { background: var(--accent-soft-2); }
+
+/* ---- focus: always visible for keyboard users, quiet for mouse/touch ---- */
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--r-2);
+}
+.view-title:focus, [tabindex="-1"]:focus { outline: none; }
+
+/* ---- helpers ---- */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+[hidden] { display: none !important; }
+
+.skip-link {
+  position: fixed;
+  left: 12px; top: -80px;
+  z-index: 1000;
+  padding: 10px 16px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  text-decoration: none;
+  transition: top var(--d-2) var(--ease-out);
+}
+.skip-link:focus { top: calc(var(--sat) + 12px); }
+
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.muted { color: var(--text-2); }
+.faint { color: var(--text-3); }
+
+noscript .noscript-msg {
+  display: block;
+  margin: 24px;
+  padding: 20px;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+/* ---- reduced motion: keep layout and state changes, drop the movement ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

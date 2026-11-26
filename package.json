@@ -1,0 +1,13 @@
+{
+  "name": "daybeat",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Static PWA. No dependencies. This file only marks .js files as ES modules for Node tools and tests.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/run-tests.mjs",
+    "serve": "node scripts/dev-server.mjs",
+    "privacy": "node scripts/privacy-scan.mjs",
+    "sw": "node scripts/build-sw-manifest.mjs"
+  }
+}

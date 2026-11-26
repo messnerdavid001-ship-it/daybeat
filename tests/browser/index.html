@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Data layer browser tests</title>
+<style>
+body{font:14px/1.4 system-ui,sans-serif;margin:16px;background:#fff;color:#111}
+@media (prefers-color-scheme:dark){body{background:#111;color:#eee}}
+li{margin:2px 0}.pass{color:#0a7a2f}.fail{color:#c00;font-weight:600}pre{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>Data layer browser tests (real IndexedDB)</h1>
+<p>Open <code>tests/browser/index.html</code> through <code>node scripts/dev-server.mjs</code>. Results below and in <code>window.__RESULTS</code>.</p>
+<p id="summary">running...</p>
+<ul id="list"></ul>
+<script type="module" src="./run.js"></script>
+</body>
+</html>

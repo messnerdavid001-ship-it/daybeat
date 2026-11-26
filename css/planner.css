@@ -1,0 +1,170 @@
+/* =====================================================================
+   Planner pages: Tasks, calendar additions, Garmin page, in-app alerts.
+   Uses the tokens from tokens.css only (works in dark, light and every accent).
+   ===================================================================== */
+
+/* ---------------- quick add ---------------- */
+.quick { padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-3); }
+.quick__row { display: flex; align-items: center; gap: var(--s-2); }
+.quick__input { flex: 1; min-width: 0; font-size: 1rem; }
+.quick__chips:empty { display: none; }
+@media (max-width: 420px) { .quick__go { display: none; } .quick .btn--primary { padding: 0; width: var(--tap); } }
+
+/* ---------------- tabs with counts ---------------- */
+.seg--tabs { display: flex; width: 100%; }
+.seg--tabs label { flex: 1; }
+.seg--tabs span { padding: 0 var(--s-2); font-size: var(--fs--1); }
+.seg__n { min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--r-pill); display: inline-grid; place-items: center; font-size: 0.75rem; background: color-mix(in srgb, currentColor 16%, transparent); }
+.filters { gap: var(--s-2); }
+.chip.is-on, .chip--button.is-on { background: var(--accent); color: var(--on-accent); }
+
+/* ---------------- progress strip ---------------- */
+.todaybar { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-4); }
+.todaybar__n { font-size: 0.8rem; font-weight: 800; }
+
+/* ---------------- groups and rows ---------------- */
+.tgroup { display: flex; flex-direction: column; gap: var(--s-2); }
+.tgroup__head { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-0); font-weight: 800; color: var(--text-2); letter-spacing: 0.01em; padding: 0 var(--s-1); }
+.tgroup.is-bad .tgroup__head { color: var(--bad); }
+.tgroup__n { font-size: 0.75rem; padding: 2px 8px; border-radius: var(--r-pill); background: var(--surface-2); color: var(--text-2); }
+.tlist { display: flex; flex-direction: column; gap: var(--s-2); }
+
+.task {
+  display: flex; align-items: flex-start; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4) var(--s-3) var(--s-3);
+  border-radius: var(--r-3);
+  background: var(--surface);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition: transform var(--d-2) var(--ease-out), opacity var(--d-3) var(--ease-out);
+}
+:root[data-theme="light"] .task { border-width: 1.5px; box-shadow: 3px 3px 0 var(--ink); }
+.task.is-overdue { border-color: color-mix(in srgb, var(--bad) 55%, var(--line)); }
+.task.is-done { opacity: 0.62; }
+.task.is-done .task__title { text-decoration: line-through; text-decoration-thickness: 2px; }
+
+.task__check {
+  flex: none; width: 32px; height: 32px; margin-top: 2px; padding: 0;
+  display: grid; place-items: center; border-radius: 50%;
+  border: 2.5px solid var(--line-strong); background: transparent; color: transparent; cursor: pointer;
+  transition: background var(--d-2) var(--ease-out), border-color var(--d-2) var(--ease-out), transform var(--d-3) var(--ease-pop), color var(--d-2);
+  /* the tap area is bigger than the circle */
+  position: relative;
+}
+.task__check::after { content: ""; position: absolute; inset: -8px; }
+.task__check svg { width: 18px; height: 18px; stroke-width: 3; }
+.task__check:hover { border-color: var(--accent); color: color-mix(in srgb, var(--accent) 50%, transparent); }
+.task__check:active { transform: scale(0.88); }
+.task__check:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.task__check.is-on, .task__check.is-popping { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.task__check.is-popping { transform: scale(1.18); }
+.task.is-overdue .task__check:not(.is-on) { border-color: color-mix(in srgb, var(--bad) 70%, var(--line-strong)); }
+
+.task__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 4px 0; text-align: left; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; border-radius: var(--r-2); }
+.task__main:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.task__title { font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; }
+.task__meta { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.meta { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs--1); font-weight: 650; color: var(--text-2); }
+.meta svg { width: 14px; height: 14px; }
+.meta.is-bad { color: var(--bad); }
+.pri--1 { color: var(--text-2); }
+.pri--2 { color: var(--warn); }
+.pri--3 { color: var(--bad); }
+
+.tfoot { margin-top: var(--s-2); }
+
+/* ---------------- task form ---------------- */
+.subtasks { display: flex; flex-direction: column; gap: var(--s-1); margin-bottom: var(--s-2); }
+.subtask { display: flex; align-items: center; gap: var(--s-2); min-height: 40px; }
+.subtask__box { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+.subtask__text { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.subtask__text.is-done { text-decoration: line-through; color: var(--text-3); }
+.subtask-add { display: flex; gap: var(--s-2); align-items: center; }
+.subtask-add .input { flex: 1; min-width: 0; }
+.icon-btn--sm { width: 36px; height: 36px; }
+.icon-btn--sm svg { width: 18px; height: 18px; }
+select.input { appearance: none; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 40px; }
+
+/* ---------------- calendar additions ---------------- */
+.cal-dots i.task-dot { background: var(--good); }
+.cal-dots i.alarm-dot { background: var(--warn); border-radius: 1px; }
+.row__time.is-task { color: var(--good); }
+.row__time.is-alarm { color: var(--warn); }
+.kind-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; font-weight: 750; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+.kind-tag svg { width: 12px; height: 12px; }
+.agenda-check { flex: none; width: 28px; height: 28px; padding: 0; display: grid; place-items: center; border-radius: 50%; border: 2.5px solid var(--line-strong); background: transparent; color: transparent; cursor: pointer; position: relative; }
+.agenda-check::after { content: ""; position: absolute; inset: -8px; }
+.agenda-check svg { width: 16px; height: 16px; stroke-width: 3; }
+.agenda-check:hover { border-color: var(--accent); }
+.agenda-check.is-on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.add-menu { display: flex; flex-direction: column; gap: var(--s-2); }
+.add-menu .btn { justify-content: flex-start; min-height: 56px; }
+.legend { display: flex; flex-wrap: wrap; gap: var(--s-3); font-size: var(--fs--1); color: var(--text-2); font-weight: 650; }
+.legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--accent); }
+.legend i.t { background: var(--good); }
+.legend i.a { background: var(--warn); border-radius: 2px; }
+
+/* ---------------- Garmin page ---------------- */
+.gm-hero { display: flex; align-items: center; gap: var(--s-4); }
+.gm-hero__num { font-size: var(--fs-4); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+.gm-hero__num small { font-size: var(--fs-0); font-weight: 700; color: var(--text-2); margin-left: 4px; letter-spacing: 0; }
+.gm-steps { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.pb-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
+.pb { padding: var(--s-3); border-radius: var(--r-3); background: var(--surface-2); }
+.pb__k { font-size: 0.75rem; font-weight: 750; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.pb__v { font-size: var(--fs-2); font-weight: 800; letter-spacing: -0.02em; margin-top: 2px; }
+.pb__d { font-size: var(--fs--1); color: var(--text-2); }
+.range { align-self: flex-start; }
+.good-text { color: var(--good); }
+
+/* ---------------- in-app alert (only while the app is open) ---------------- */
+.alert-sheet__time { font-size: var(--fs-5); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+.alert-sheet__who { font-size: var(--fs-2); font-weight: 750; }
+
+@media (prefers-reduced-motion: reduce) {
+  .task, .task__check { transition: none; }
+  .task__check.is-popping { transform: none; }
+}
+@media (min-width: 900px) {
+  .task { padding-right: var(--s-5); }
+  .pb-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* generic button reset used by rows that hold their own tick button */
+.row__main { background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-radius: var(--r-2); }
+.row__main:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.tile-link { display: flex; align-items: center; gap: var(--s-4); text-decoration: none; color: inherit; }
+.tile-link:hover { background: var(--surface-2); }
+.todaytasks .tlist { margin-top: var(--s-2); }
+
+/* rows that are links (Today's task list) must not look like underlined links */
+a.task__main, a.task__main:hover, a.task__main * { text-decoration: none; }
+a.row, a.row:hover { text-decoration: none; color: inherit; }
+
+/* tabs with counts must fit a 320 px phone */
+.seg--tabs { overflow: hidden; }
+.seg--tabs label { min-width: 0; }
+.seg--tabs span { padding: 0 2px; gap: 4px; font-size: 0.8rem; white-space: nowrap; }
+.seg--tabs .seg__n { min-width: 18px; height: 18px; padding: 0 5px; font-size: 0.7rem; }
+
+/* text on the bright accent card must be ink, not the pale grey used on dark cards */
+.card--accent .gm-hero__num small,
+.card--accent .level__num small,
+.card--accent .ring__center small { color: color-mix(in srgb, var(--on-accent) 78%, transparent); }
+.card--accent .btn--ghost { color: var(--on-accent); border-color: color-mix(in srgb, var(--on-accent) 45%, transparent); }
+.card--accent .btn--ghost:hover:not([disabled]) { background: color-mix(in srgb, var(--on-accent) 12%, transparent); }
+
+/* long sheets: keep the action buttons on screen while the content scrolls */
+.sheet__foot {
+  position: sticky;
+  bottom: calc(-1 * (var(--s-5) + var(--sab)));
+  margin: var(--s-4) 0 calc(-1 * (var(--s-5) + var(--sab)));
+  padding: var(--s-3) 0 calc(var(--s-5) + var(--sab));
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  z-index: 1;
+}
+@media (min-width: 700px) {
+  .sheet__foot { bottom: calc(-1 * var(--s-5)); margin-bottom: calc(-1 * var(--s-5)); padding-bottom: var(--s-5); }
+}

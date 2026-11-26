@@ -1,0 +1,45 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Fake Sample Calendar//Tests//EN
+X-WR-CALNAME:Sample calendar
+X-WR-CALDESC:FAKE-DEMO-DATA made up for automated tests. Not a real calendar.
+BEGIN:VEVENT
+UID:fake-weekly-1@example.invalid
+DTSTART;TZID=America/New_York:20261102T093000
+DTEND;TZID=America/New_York:20261102T100000
+RRULE:FREQ=WEEKLY;BYDAY=MO
+SUMMARY:Sample weekly sync
+LOCATION:Sample Room 1
+DESCRIPTION:Made-up meeting for tests.\nSecond line.
+END:VEVENT
+BEGIN:VEVENT
+UID:fake-allday-1@example.invalid
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+SUMMARY:Sample holiday
+END:VEVENT
+BEGIN:VEVENT
+UID:fake-trip-1@example.invalid
+DTSTART;VALUE=DATE:20261211
+DTEND;VALUE=DATE:20261214
+SUMMARY:Sample weekend away
+END:VEVENT
+BEGIN:VEVENT
+UID:fake-utc-1@example.invalid
+DTSTART:20261203T180000Z
+DTEND:20261203T190000Z
+SUMMARY:Sample dinner (UTC time)
+ATTENDEE;CN=Sample Person:mailto:sample.person@example.invalid
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Sample reminder
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:fake-float-1@example.invalid
+DTSTART:20261205T101500
+DTEND:20261205T111500
+SUMMARY:Sample floating-time errand
+END:VEVENT
+END:VCALENDAR

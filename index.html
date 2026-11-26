@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-accent="volt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Daybeat</title>
+  <meta name="description" content="Daybeat keeps your day on beat: tasks, calendar and alarms, plus a place for your Garmin numbers, with streaks and quests. Everything stays on your device. Unofficial, not affiliated with Garmin.">
+
+  <!-- No third-party requests of any kind: this policy makes the browser enforce it. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+
+  <!-- Installable web app (iPhone: Share > Add to Home Screen; desktop: install icon) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Daybeat">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+  <!-- Applies the saved theme before first paint (external file: the CSP forbids inline scripts) -->
+  <script src="js/ui/boot.js"></script>
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/planner.css">
+</head>
+<body>
+  <a class="skip-link" href="#view">Skip to content</a>
+
+  <div class="app">
+    <aside class="sidebar" aria-label="Sidebar">
+      <a class="brand" href="#/today" aria-label="Daybeat, go to Today">
+        <img class="brand__mark" src="icons/favicon.svg" alt="" width="38" height="38">
+        <span class="brand__name">Daybeat</span>
+      </a>
+      <nav aria-label="Pages" id="side-nav" class="side-nav"></nav>
+      <div class="side-foot" id="side-foot"></div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar">
+        <a class="brand brand--compact" href="#/today" aria-label="Daybeat, go to Today">
+          <img class="brand__mark" src="icons/favicon.svg" alt="" width="32" height="32">
+          <span class="brand__name">Daybeat</span>
+        </a>
+        <p class="topbar__date" id="topbar-date"></p>
+        <div class="topbar__actions" id="topbar-actions">
+          <div class="hud" id="hud" aria-label="Your progress"></div>
+        </div>
+      </header>
+
+      <div class="notices" id="notices"></div>
+
+      <main id="view" class="view" tabindex="-1">
+        <noscript><p class="noscript-msg">Daybeat needs JavaScript to run. It does not send anything anywhere: all your data stays in this browser.</p></noscript>
+      </main>
+    </div>
+
+    <nav class="tabbar" aria-label="Pages">
+      <ul class="tabbar__list plain" id="tabbar-list"></ul>
+    </nav>
+  </div>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <div class="sr-only" id="route-announcer" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

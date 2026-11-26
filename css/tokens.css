@@ -1,0 +1,153 @@
+/* =====================================================================
+   Design tokens: colour (dark + light + accents), type, space, radii, motion.
+   Theme is chosen by js/ui/boot.js (before first paint): <html data-theme="dark|light" data-accent="...">
+   ===================================================================== */
+
+:root {
+  /* ---- type ---- */
+  --font-ui: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-num: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs--1: 0.8125rem;   /* 13 */
+  --fs-0: 1rem;         /* 16 */
+  --fs-1: 1.125rem;     /* 18 */
+  --fs-2: 1.375rem;     /* 22 */
+  --fs-3: 1.75rem;      /* 28 */
+  --fs-4: 2.25rem;      /* 36 */
+  --fs-5: 3rem;         /* 48 */
+  --lh-tight: 1.15;
+  --lh-body: 1.45;
+
+  /* ---- space (4px base) ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* ---- radii ---- */
+  --r-1: 8px;
+  --r-2: 12px;
+  --r-3: 16px;
+  --r-4: 22px;
+  --r-5: 28px;
+  --r-pill: 999px;
+
+  /* ---- motion ---- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --d-1: 120ms;
+  --d-2: 220ms;
+  --d-3: 380ms;
+  --d-4: 700ms;
+
+  /* ---- layout ---- */
+  --sidebar-w: 256px;
+  --topbar-h: 56px;
+  --tabbar-h: 68px;
+  --gutter: 16px;
+  --maxw: 980px;
+  --tap: 44px;
+
+  /* ---- safe areas (iPhone notch / home indicator) ---- */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+
+  /* ---- fixed semantic colours (same in both themes; tuned to pass on both) ---- */
+  --flame: #ff8a3d;
+  --flame-2: #ff5c5c;
+  --xp: #ffc24b;
+}
+
+@media (min-width: 600px) { :root { --gutter: 24px; } }
+@media (min-width: 900px) { :root { --gutter: 32px; } }
+
+/* ---------------------------------------------------------------------
+   Dark theme (default): warm ink, soft borders
+   --------------------------------------------------------------------- */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1115;
+  --bg-2: #13161c;
+  --surface: #181b22;
+  --surface-2: #20242d;
+  --surface-3: #2a2f3a;
+  --ink: #f4f1ea;
+  --line: rgba(244, 241, 234, 0.10);
+  --line-strong: rgba(244, 241, 234, 0.24);
+  --text: #f4f1ea;
+  --text-2: #b9becb;
+  --text-3: #98a0af;
+  --scrim: rgba(6, 7, 10, 0.64);
+  --glass: color-mix(in srgb, #0f1115 74%, transparent);
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 48px rgba(0, 0, 0, 0.55);
+  --card-border: 1px solid var(--line);
+  --card-shadow: var(--shadow-1);
+  --btn-border: 0 solid transparent;
+  --btn-shadow: none;
+  --good: #3ddba4;
+  --warn: #ffc24b;
+  --bad: #ff7a8a;
+  --accent-text: var(--accent);
+  --glow-alpha: 13%;
+}
+
+/* ---------------------------------------------------------------------
+   Light theme: warm paper, chunky ink outlines with hard offset shadows
+   --------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f2ea;
+  --bg-2: #efeae0;
+  --surface: #ffffff;
+  --surface-2: #efeae0;
+  --surface-3: #e3ddcf;
+  --ink: #14161b;
+  --line: rgba(20, 22, 27, 0.14);
+  --line-strong: rgba(20, 22, 27, 0.30);
+  --text: #14161b;
+  --text-2: #4a4f5e;
+  --text-3: #535868;
+  --scrim: rgba(20, 22, 27, 0.45);
+  --glass: color-mix(in srgb, #f6f2ea 86%, transparent);
+  --shadow-1: 0 1px 2px rgba(20, 22, 27, 0.06), 0 8px 24px rgba(20, 22, 27, 0.08);
+  --shadow-2: 0 2px 4px rgba(20, 22, 27, 0.08), 0 20px 48px rgba(20, 22, 27, 0.18);
+  --card-border: 2px solid var(--ink);
+  --card-shadow: 4px 4px 0 var(--ink);
+  --btn-border: 2px solid var(--ink);
+  --btn-shadow: 3px 3px 0 var(--ink);
+  --good: #09694e;
+  --warn: #8f5300;
+  --bad: #b3203a;
+  --accent-text: var(--accent-ink);
+  --glow-alpha: 0%;
+}
+
+/* ---------------------------------------------------------------------
+   Accent colours (user choice). --accent = fill, --accent-2 = gradient partner,
+   --on-accent = ink on a fill, --accent-ink = accent used as TEXT on the light theme.
+   All pairs checked: ink on fill >= 6:1; fill as text on dark >= 4.9:1; ink as text on light >= 4.8:1.
+   --------------------------------------------------------------------- */
+:root,
+:root[data-accent="volt"]      { --accent: #c6f432; --accent-2: #9be84a; --accent-ink: #4b6300; }
+:root[data-accent="bubblegum"] { --accent: #ff5ca8; --accent-2: #ff7a6b; --accent-ink: #b3125f; }
+:root[data-accent="sky"]       { --accent: #5cc8ff; --accent-2: #6fa3ff; --accent-ink: #0b5f8a; }
+:root[data-accent="sunset"]    { --accent: #ff8a3d; --accent-2: #ff6b57; --accent-ink: #a8480a; }
+:root[data-accent="grape"]     { --accent: #9b7bff; --accent-2: #c47bff; --accent-ink: #5b3fcc; }
+:root[data-accent="mint"]      { --accent: #3ddba4; --accent-2: #3dcfd9; --accent-ink: #0a7355; }
+
+:root {
+  --on-accent: #0f1115;
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-soft-2: color-mix(in srgb, var(--accent) 28%, transparent);
+  --grad-accent: linear-gradient(135deg, var(--accent), var(--accent-2));
+  --focus: var(--accent-text);
+}
+:root[data-theme="light"] { --focus: var(--ink); }
